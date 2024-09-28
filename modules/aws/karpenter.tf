@@ -264,3 +264,12 @@ resource "kubernetes_network_policy" "karpenter_allow_control_plane" {
 output "karpenter_iam" {
   value = module.karpenter
 }
+
+output "debug_values" {
+  value = {
+    cluster_name           = var.cluster-name
+    iam_role_arn           = module.karpenter.iam_role_arn
+    instance_profile_name  = module.karpenter.instance_profile_name
+    queue_name             = module.karpenter.queue_name
+  }
+}
