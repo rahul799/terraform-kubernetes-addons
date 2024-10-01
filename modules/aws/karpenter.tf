@@ -10,6 +10,7 @@ locals {
       namespace                       = "karpenter"
       enabled                         = false
       create_ns                       = true
+      instance_profile_name           = "karpenter"
       default_network_policy          = true
       irsa_oidc_provider_arn          = var.eks["oidc_provider_arn"]
       irsa_namespace_service_accounts = ["karpenter:karpenter"]
@@ -142,7 +143,7 @@ resource "helm_release" "karpenter" {
 
   set {
     name  = "settings.aws.defaultInstanceProfile"
-    value = "instance-profile-name"
+    value = var.instance_profile_name
   }
 
   set {
@@ -263,13 +264,4 @@ resource "kubernetes_network_policy" "karpenter_allow_control_plane" {
 
 output "karpenter_iam" {
   value = module.karpenter
-}
-
-output "debug_values" {
-  value = {
-    cluster_name           = var.cluster-name
-    iam_role_arn           = module.karpenter.iam_role_arn
-    instance_profile_name  = module.karpenter.instance_profile_name
-    queue_name             = module.karpenter.queue_name
-  }
 }
