@@ -28,6 +28,12 @@ variable "cluster-name" {
   type        = string
 }
 
+variable "instance_profile_name" {
+  description = "Name of the instance profile"
+  default     = "instance_profile_name"
+  type        = string
+}
+
 variable "csi-external-snapshotter" {
   description = "Customize csi-external-snapshotter, see `csi-external-snapshotter.tf` for supported values"
   type        = any
