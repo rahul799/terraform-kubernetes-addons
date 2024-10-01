@@ -83,7 +83,7 @@ module "karpenter" {
   irsa_oidc_provider_arn          = local.karpenter["irsa_oidc_provider_arn"]
   irsa_namespace_service_accounts = local.karpenter["irsa_namespace_service_accounts"]
 
-  create_iam_role = false
+  create_iam_role = true
   iam_role_name   = local.karpenter["iam_role_name"]
 
   tags = local.tags
@@ -137,7 +137,7 @@ resource "helm_release" "karpenter" {
 
   set {
     name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-    value = "arn:aws:iam::000000000000:role/role-name"
+    value = module.karpenter.iam_role_arn
   }
 
   set {
