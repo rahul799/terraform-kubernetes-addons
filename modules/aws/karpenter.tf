@@ -10,7 +10,6 @@ locals {
       namespace                       = "karpenter"
       enabled                         = false
       create_ns                       = true
-      instance_profile_name           = "karpenter"
       default_network_policy          = true
       irsa_oidc_provider_arn          = var.eks["oidc_provider_arn"]
       irsa_namespace_service_accounts = ["karpenter:karpenter"]
@@ -143,7 +142,7 @@ resource "helm_release" "karpenter" {
 
   set {
     name  = "settings.aws.defaultInstanceProfile"
-    value = var.instance_profile_name
+    value = "karpenter"
   }
 
   set {
