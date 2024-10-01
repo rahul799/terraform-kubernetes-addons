@@ -86,6 +86,8 @@ module "karpenter" {
   create_iam_role = true
   iam_role_name   = local.karpenter["iam_role_name"]
 
+  create_instance_profile = true
+
   tags = local.tags
 }
 
@@ -142,7 +144,7 @@ resource "helm_release" "karpenter" {
 
   set {
     name  = "settings.aws.defaultInstanceProfile"
-    value = "karpenter"
+    value = module.karpenter.instance_profile_name
   }
 
   set {
