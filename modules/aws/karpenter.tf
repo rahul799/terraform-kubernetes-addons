@@ -68,7 +68,7 @@ resource "aws_iam_policy" "karpenter_additional" {
 
 module "karpenter" {
   source  = "terraform-aws-modules/eks/aws//modules/karpenter"
-  version = "~> 20.0"
+  version = "~> 20.5.0"
 
   create = local.karpenter["enabled"]
 
@@ -265,4 +265,13 @@ resource "kubernetes_network_policy" "karpenter_allow_control_plane" {
 
 output "karpenter_iam" {
   value = module.karpenter
+}
+
+output "debug_values" {
+  value = {
+    cluster_name          = var.cluster-name
+    iam_role_arn          = module.karpenter.iam_role_arn
+    instance_profile_name = module.karpenter.instance_profile_name
+    queue_name            = module.karpenter.queue_name
+  }
 }
