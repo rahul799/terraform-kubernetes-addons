@@ -85,8 +85,7 @@ module "karpenter" {
   irsa_namespace_service_accounts = local.karpenter["irsa_namespace_service_accounts"]
 
   create_iam_role = true
-  # iam_role_name   = local.karpenter["iam_role_name"]
-  iam_role_name = "rahulisthebest"
+  iam_role_name   = local.karpenter["iam_role_name"]
 
   create_instance_profile = true
 
