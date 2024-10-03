@@ -79,14 +79,14 @@ module "karpenter" {
     KarpeneterAdditional         = local.karpenter["enabled"] ? aws_iam_policy.karpenter_additional[0].arn : ""
   }
 
-  #iam_role_use_name_prefix        = true
-  iam_role_use_name_prefix        = false
+  enable_irsa                     = true
   irsa_oidc_provider_arn          = local.karpenter["irsa_oidc_provider_arn"]
   irsa_namespace_service_accounts = local.karpenter["irsa_namespace_service_accounts"]
 
-  create_iam_role       = true
-  iam_role_name         = local.karpenter["iam_role_name"]
-  enable_v1_permissions = true
+  create_iam_role          = true
+  iam_role_name            = local.karpenter["iam_role_name"]
+  iam_role_use_name_prefix = false
+  enable_v1_permissions    = true
 
   create_instance_profile = false
 
