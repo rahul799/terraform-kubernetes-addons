@@ -68,7 +68,7 @@ resource "aws_iam_policy" "karpenter_additional" {
 
 module "karpenter" {
   source  = "terraform-aws-modules/eks/aws//modules/karpenter"
-  version = "~> 20.5.0"
+  version = "~> 20.0"
 
   create = local.karpenter["enabled"]
 
@@ -87,7 +87,7 @@ module "karpenter" {
   create_iam_role = true
   iam_role_name   = local.karpenter["iam_role_name"]
 
-  create_instance_profile = true
+  create_instance_profile = false
 
   tags = local.tags
 }
@@ -134,7 +134,7 @@ resource "helm_release" "karpenter" {
   namespace = local.karpenter["create_ns"] ? kubernetes_namespace.karpenter.*.metadata.0.name[count.index] : local.karpenter["namespace"]
 
   set {
-    name  = "settings.aws.clusterName"
+    name  = "settings.clusterName"
     value = var.cluster-name
   }
 
@@ -144,12 +144,7 @@ resource "helm_release" "karpenter" {
   }
 
   set {
-    name  = "settings.aws.defaultInstanceProfile"
-    value = module.karpenter.instance_profile_name
-  }
-
-  set {
-    name  = "settings.aws.interruptionQueueName"
+    name  = "settings.interruptionQueueName"
     value = module.karpenter.queue_name
   }
 
