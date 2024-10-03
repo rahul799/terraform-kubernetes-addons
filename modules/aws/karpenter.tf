@@ -84,8 +84,9 @@ module "karpenter" {
   irsa_oidc_provider_arn          = local.karpenter["irsa_oidc_provider_arn"]
   irsa_namespace_service_accounts = local.karpenter["irsa_namespace_service_accounts"]
 
-  create_iam_role = true
-  iam_role_name   = local.karpenter["iam_role_name"]
+  create_iam_role       = true
+  iam_role_name         = local.karpenter["iam_role_name"]
+  enable_v1_permissions = true
 
   create_instance_profile = false
 
