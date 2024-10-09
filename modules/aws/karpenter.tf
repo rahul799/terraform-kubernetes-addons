@@ -90,19 +90,6 @@ module "karpenter" {
   iam_role_use_name_prefix = false
   enable_v1_permissions    = true
 
-  iam_policy_statements = [
-        {
-      "Version": "2012-10-17",
-      "Statement": [
-        {
-          "Effect": "Allow",
-          "Action": "iam:PassRole",
-          "Resource": "arn:aws:iam::282244745782:role/cf-mgmt-staging-virginia-eks-nodes"
-        }
-      ]
-    }
-  ]
-  
   create_instance_profile = false
 
   tags = local.tags
