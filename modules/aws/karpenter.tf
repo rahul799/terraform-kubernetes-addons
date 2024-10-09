@@ -91,15 +91,10 @@ module "karpenter" {
   enable_v1_permissions    = true
 
   iam_policy_statements = [
-        {
-      "Version": "2012-10-17",
-      "Statement": [
-        {
-          "Effect": "Allow",
-          "Action": "iam:PassRole",
-          "Resource": "arn:aws:iam::282244745782:role/cf-mgmt-staging-virginia-eks-nodes"
-        }
-      ]
+    {
+      effect    = "Allow"
+      actions   = ["iam:PassRole"]
+      resources = ["arn:aws:iam::282244745782:role/cf-mgmt-staging-virginia-eks-nodes"]
     }
   ]
 
