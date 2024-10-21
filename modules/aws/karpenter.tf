@@ -94,7 +94,7 @@ module "karpenter" {
     {
       effect    = "Allow"
       actions   = ["iam:PassRole"]
-      resources = ["arn:aws:iam::282244745782:role/cf-mgmt-staging-virginia-eks-nodes"]
+      resources = ["arn:aws:iam::282244745782:role/cf-mgmt-staging-virginia-eks-nodes","arn:aws:iam::282244745782:role/cf-commercial-staging2021080420370503460000000c"]
     }
   ]
 
